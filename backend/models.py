@@ -7,7 +7,9 @@ from sqlalchemy import Index, UniqueConstraint
 
 db = SQLAlchemy()
 
+#wang
 # In-memory JWT blocklist. Replace with Redis in production.
+
 revoked_tokens: set = set()
 
 
