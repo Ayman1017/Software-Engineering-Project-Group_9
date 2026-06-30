@@ -3,6 +3,8 @@ Delete all rows from the observations table only.
 Run from the project root:
     python backend/clean_db.py
 """
+#wang
+
 import os
 import pathlib
 
