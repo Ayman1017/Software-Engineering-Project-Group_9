@@ -7,6 +7,12 @@ the duration of the test run — no PostgreSQL setup is required, and the real
 since these tests don't exercise anything involving the PostGIS-backed
 WeatherStation table.
 
+IMPORTANT: the DATABASE_URL environment variable is overridden at the very
+top of this file, before any `backend.*` modules are imported. This is
+required because Flask-SQLAlchemy builds its database engine as soon as
+db.init_app(app) runs inside create_app() — overriding the URI afterwards
+is too late, since the (wrong) engine is already built by then.
+
 Run with:
     pytest tests/test_auth.py -v
 or, to run the whole suite:
@@ -16,12 +22,17 @@ or, to run the whole suite:
 import os
 import sys
 
-import pytest
-
 # Allow running `pytest tests/` from the project root to resolve `backend.*` imports
 _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
+
+# Must happen BEFORE `backend.config` / `backend.app` are imported anywhere,
+# including transitively, so the test database engine is built correctly
+# from the start instead of pointing at the real PostgreSQL database.
+os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+
+import pytest
 
 from backend.app import create_app
 from backend.models import db, User, revoked_tokens
@@ -31,12 +42,7 @@ from backend.models import db, User, revoked_tokens
 def app():
     """Flask app configured for testing, backed by an in-memory SQLite DB."""
     flask_app = create_app("default")
-    flask_app.config.update(
-        {
-            "TESTING": True,
-            "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
-        }
-    )
+    flask_app.config["TESTING"] = True
 
     with flask_app.app_context():
         User.__table__.create(db.engine, checkfirst=True)
