@@ -163,8 +163,7 @@ Full project documentation is available in this repository:
 
 ## Known Limitations
 
-- NGO account registration may fail due to a case-sensitivity mismatch between frontend and backend validation
-- Trend charts may not fully reflect a user-selected date range in all cases
+- Login and data fetching for the first time may take up to 1 minute .
 
 ---
 
