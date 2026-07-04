@@ -164,6 +164,8 @@ Full project documentation is available in this repository:
 ## Known Limitations
 
 - Login and data fetching for the first time may take up to 1 minute .
+- Real weather data is only available for four hardcoded stations (Milano Malpensa, Milano Linate, Roma Fiumicino, Roma Ciampino); other cities are not supported.
+- If no valid RapidAPI key is configured, the system falls back entirely to mock/synthetic data.
 
 ---
 
