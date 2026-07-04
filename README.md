@@ -19,6 +19,7 @@ Flask REST API  →  PostgreSQL Database  →  Streamlit Dashboard
 ```
 
 The system ingests weather observations from four real monitoring stations across Milan and Rome, stores them in a relational database, and presents them through an interactive dashboard with maps, trend charts, and per-station statistics.
+The CSV observations can be downloaded for each station individually or per city.
 
 ### Monitored stations
 
