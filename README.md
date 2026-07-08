@@ -19,6 +19,7 @@ Flask REST API  →  PostgreSQL Database  →  Streamlit Dashboard
 ```
 
 The system ingests weather observations from four real monitoring stations across Milan and Rome, stores them in a relational database, and presents them through an interactive dashboard with maps, trend charts, and per-station statistics.
+The CSV observations can be downloaded for each station individually or per city.
 
 ### Monitored stations
 
@@ -163,8 +164,9 @@ Full project documentation is available in this repository:
 
 ## Known Limitations
 
-- NGO account registration may fail due to a case-sensitivity mismatch between frontend and backend validation
-- Trend charts may not fully reflect a user-selected date range in all cases
+- Login and data fetching for the first time may take up to 1 minute .
+- Real weather data is only available for four hardcoded stations (Milano Malpensa, Milano Linate, Roma Fiumicino, Roma Ciampino); other cities are not supported.
+- If no valid RapidAPI key is configured, the system falls back entirely to mock/synthetic data.
 
 ---
 
